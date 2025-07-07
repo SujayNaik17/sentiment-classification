@@ -1,0 +1,3 @@
+# Cleaned and labeled review data
+# This file contains processed reviews ready for model training
+# Columns might include: review_text, sentiment_label, cleaned_text, etc.

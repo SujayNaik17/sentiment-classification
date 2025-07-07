@@ -1,0 +1,3 @@
+# Raw scraped reviews data
+# This file will contain the unprocessed review data scraped from various sources
+# Columns might include: review_text, source, date_scraped, etc.
