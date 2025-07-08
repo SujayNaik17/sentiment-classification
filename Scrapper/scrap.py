@@ -36,11 +36,11 @@ def rate_limited_request(url, delay=3, retries=5):
         except Exception as e:
             if "HTTP Error 429" in str(e):
                 wait_time = 2 ** (attempt + 1)
-                print(f"⚠️ Too Many Requests - waiting {wait_time}s before retrying...")
+                print(f"Too Many Requests - waiting {wait_time}s before retrying...")
                 time.sleep(wait_time)
             else:
                 raise e
-    raise Exception("❌ Failed after multiple retries due to rate limiting.")
+    raise Exception("Failed after multiple retries due to rate limiting.")
 
 
 
@@ -53,7 +53,7 @@ def scrape_flipkart_reviews(search_string):
             if user_input.lower() != 'y':
                 return []
 
-        print("✓ Robots.txt compliance checked")
+        print("Robots.txt compliance checked")
 
         # Clean search string
         search_string_cleaned = search_string.replace(" ", "")
@@ -96,12 +96,12 @@ def scrape_flipkart_reviews(search_string):
         # if product_anchor:
         #     product_partial_link = product_anchor['href']
         # else:
-        #     logging.error("❌ Product link not found in first_product")
+        #     logging.error("Product link not found in first_product")
         #     return []
 
         
         product_link = "https://www.flipkart.com" + product_partial_link
-        # print(f"✓ Found product link: {product_link}")
+        # print(f"Found product link: {product_link}")
 
         # Extract product ID from link
         try:
@@ -110,7 +110,7 @@ def scrape_flipkart_reviews(search_string):
             product_id = "Not Found"
             logging.info("Product ID not found")
 
-        print(f"✓ Found product: {product_id}")
+        print(f"Found product: {product_id}")
         print("Fetching product details...")
 
         product_client = rate_limited_request(product_link)
@@ -128,7 +128,7 @@ def scrape_flipkart_reviews(search_string):
             product_name = "Unknown Product"
             logging.info(f"Product name not found: {e}")
 
-        print(f"✓ Found product name: {product_name}")
+        print(f"Found product name: {product_name}")
 
 
         # Handle dynamic content
@@ -144,7 +144,7 @@ def scrape_flipkart_reviews(search_string):
 
         if link:
             review_href = link["href"]
-            print(f"✓ Found review link: {review_href}")
+            print(f"Found review link: {review_href}")
         else:
             logging.error("Review link not found")
 
@@ -159,9 +159,9 @@ def scrape_flipkart_reviews(search_string):
             logging.error("Review link not found")
             return []
         
-        # print(f"✓ Found review link: {review_link_element.a['href']}")
+        # print(f"Found review link: {review_link_element.a['href']}")
 
-        print("✓ Found review section")
+        print("Found review section")
         print("Fetching reviews...")
 
         # first_review_page_link = "https://www.flipkart.com" + review_link_element.a["href"]
@@ -197,10 +197,10 @@ def scrape_flipkart_reviews(search_string):
 
         del review_page_links[15:]  # only keep first 500 pages
 
-        print(f"✓ Found {len(review_page_links)} review pages to scrape")
+        print(f"Found {len(review_page_links)} review pages to scrape")
 
         # Create CSV file with timestamp
-        filename = "review_temp.csv"
+        filename = "review_dataset.csv"
 
         file_exists = False
         try:
@@ -274,15 +274,15 @@ def scrape_flipkart_reviews(search_string):
                 data = f"{mydict['Product Name']}, {mydict['Product ID']}, {mydict['Review Text']}, {mydict['Review Rating']}, {mydict['Reviewer Verified']}\n"
                 fw.write(data)
 
-            print(f"✓ Scraped {page_reviews} reviews from page {page_num}")
+            print(f"Scraped {page_reviews} reviews from page {page_num}")
             total_scraped += page_reviews
 
 
         fw.close()
         logging.info("Scraping completed successfully")
         
-        print(f"\n✓ Scraping completed! Found {total_scraped} reviews.")
-        print(f"✓ Data saved to: {filename}")
+        print(f"\nScraping completed! Found {total_scraped} reviews.")
+        print(f"Data saved to: {filename}")
         
         return reviews
 
@@ -302,8 +302,8 @@ def main():
         print("Please enter a valid product name.")
         return
 
-    print(f"\n🔎 Searching for: {search_term}")
-    print("⏳ Starting compliant scraping process...")
+    print(f"\nSearching for: {search_term}")
+    print("Starting compliant scraping process...")
 
     reviews = scrape_flipkart_reviews(search_term)
 
