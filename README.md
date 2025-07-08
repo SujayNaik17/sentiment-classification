@@ -4,6 +4,8 @@
 
 This project builds an end-to-end sentiment analysis system for customer reviews scraped from Flipkart. It involves web scraping, data preprocessing, model training using an SVM classifier, and a deployed Flask API that predicts the sentiment of a given product review as **positive**, **neutral**, or **negative** with a confidence score.
 
+For this project, reviews from almost 100 products in the category of kitchen essentials and kitchen appliances were used to train and evaluate the sentiment classification model.
+
 ## Setup Instructions
 
 1. Clone the repository:
