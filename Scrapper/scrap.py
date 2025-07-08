@@ -195,11 +195,10 @@ def scrape_flipkart_reviews(search_string):
             if idx != -1:
                 review_page_links[i] = review_page_links[i][:idx] + f"aid=overall&certifiedBuyer=true&sortOrder=MOST_RECENT&page={i+1}"
 
-        del review_page_links[15:]  # only keep first 500 pages
+        del review_page_links[15:]  
 
         print(f"Found {len(review_page_links)} review pages to scrape")
 
-        # Create CSV file with timestamp
         filename = "review_dataset.csv"
 
         file_exists = False
@@ -219,7 +218,6 @@ def scrape_flipkart_reviews(search_string):
         total_scraped = 0
 
         # Scrape reviews with rate limiting
-                # Scrape reviews with rate limiting
         for page_num, link in enumerate(review_page_links, 1):
             print(f"Scraping page {page_num}/{len(review_page_links)}...")
 
